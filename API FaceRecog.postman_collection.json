@@ -1,0 +1,131 @@
+{
+  "info": {
+    "_postman_id": "f555ea7f-9c3f-4d86-bc9a-e4ecc7928bd6",
+    "name": "API FaceRecog",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23610836"
+  },
+  "item": [
+    {
+      "name": "health",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "admin",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-ADMIN-Key",
+            "value": "change-me-strong-admin-key",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/v1/admin/fingerprint",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "admin",
+            "fingerprint"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "enroll",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "change-me-strong-api-key",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "93e77fb5-415d-4f38-9a3b-17525bed9d04",
+              "src": "/Users/riscoaditya/Desktop/photo_2025-10-21_05-30-50.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/v1/enroll?user_id=123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "enroll"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "verify",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "change-me-strong-api-key",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "f4962802-f64c-469c-bb72-9fff3904474a",
+              "src": "/Users/riscoaditya/Desktop/photo_2025-10-21_05-30-50.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/v1/verify?user_id=123",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "verify"
+          ],
+          "query": [
+            {
+              "key": "user_id",
+              "value": "123"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

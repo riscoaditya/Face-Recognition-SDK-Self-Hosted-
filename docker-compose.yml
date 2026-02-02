@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: fr_db
+    environment:
+      POSTGRES_DB: frsdk
+      POSTGRES_USER: frsdk
+      POSTGRES_PASSWORD: frsdk_password
+    volumes:
+      - frsdk_pg:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  api:
+    # Opsi A (recommended untuk produk): gunakan prebuilt image kamu
+    # image: yourcompany/fr-sdk:1.0.0
+    #
+    # Opsi B (dev/local): build dari source (jangan untuk customer)
+    #build: .
+    image: riscoaditya/fr-sdk:1.0.0
+    container_name: fr_api
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    environment:
+      APP_ENV: production
+      LOG_LEVEL: info
+
+      DATABASE_URL: postgresql+psycopg2://frsdk:frsdk_password@db:5432/frsdk
+
+      # Models inside container
+      MODEL_DIR: /models
+      DETECTOR_ONNX: /models/detector.onnx
+      RECOGNIZER_ONNX: /models/recognizer.onnx
+
+      # Defaults (can be overridden by .env too)
+      VERIFY_THRESHOLD: ${VERIFY_THRESHOLD:-0.35}
+      MIN_QUALITY: ${MIN_QUALITY:-0.25}
+
+    volumes:
+      - ./models:/models:ro
+      - ./host_id.txt:/etc/frsdk/host_id:ro
+
+    restart: unless-stopped
+
+volumes:
+  frsdk_pg:
