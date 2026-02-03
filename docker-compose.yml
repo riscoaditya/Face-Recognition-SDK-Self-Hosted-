@@ -40,7 +40,7 @@ services:
       MIN_QUALITY: ${MIN_QUALITY:-0.25}
 
     volumes:
-      - ./models:/models:ro
+      - ./models:/models
       - ./host_id.txt:/etc/frsdk/host_id:ro
 
     restart: unless-stopped
